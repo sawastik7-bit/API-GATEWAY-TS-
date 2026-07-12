@@ -6,24 +6,24 @@
     // "outDir": "./dist",
 
     // Environment Settings
-    // See also https://aka.ms/tsconfig/module
-    "module": "esnext",  // controls which system your code uses to import/export the files between each other 
+    // See also https://aka.Dms/tsconfig/module
+    "module": "nodenext",  // controls which system your code uses to import/export the files between each other 
     "target": "es2022",// controls which js features you are allowed to appear in the output based on how older or newer the js engine runs the code 
-    "types": [],
+    "types": ["node"],
     // For nodejs:
     // "lib": ["esnext"],
-    // "types": ["node"],
+
     // and npm install -D @types/node
 
     // Other Outputs
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
-
+"moduleResolution": "nodenext",
+"esModuleInterop": true,
     // Style Options
     // "noImplicitReturns": true,
     // "noImplicitOverride": true,

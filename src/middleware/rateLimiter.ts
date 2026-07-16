@@ -50,8 +50,9 @@ if (currentCount === 0) {
     }catch(err){
         if(err instanceof Error){
         console.error('[RateLimit] Redis error - Failing open : ',err.message);
-        next();
+      
         }
+          next();
     }
 
 

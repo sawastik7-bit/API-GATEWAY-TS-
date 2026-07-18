@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
+import '../config.js'
 import type {Request,Response,NextFunction} from 'express';
+
 
 if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET is not defined in environment variables");

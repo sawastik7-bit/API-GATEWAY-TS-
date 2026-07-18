@@ -40,8 +40,8 @@ const rateLimiter = async (req, res, next) => {
     catch (err) {
         if (err instanceof Error) {
             console.error('[RateLimit] Redis error - Failing open : ', err.message);
-            next();
         }
+        next();
     }
 };
 export default rateLimiter;

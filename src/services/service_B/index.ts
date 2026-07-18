@@ -9,76 +9,77 @@ app.use(express.json());
 type ProductData={
     id:number,
     name:string,
-    email:string,
-    role:"admin" | "user";
+    price:number,
+    country:string
 }
-const users: Array<ProductData> = [
-    {id:1,name:"soap",email:"sabi@gmail.com",role:"admin"},
-    {id:2,name:"mug",email:"asus@gmail.com",role:"user"},
-    {id:3,name:"slippers",email:"samsung@gmail.com",role:"admin"},
-    {id:4,name:"brush",email:"android@gmail.com",role:"user"},
+const products: Array<ProductData> = [
+    {id:1,name:"soap",price:4000,country:"America"},
+    {id:2,name:"mug",price:5000,country:"china"},
+    {id:3,name:"slippers",price:6000,country:"cabo verde"},
+    {id:4,name:"brush",price:1000,country:"ireland"},
 ]
 
-app.get('/users',(req:express.Request,res:express.Response)=>{
-    console.log(`Service A GET/users called`);
+app.get('/products',(req:express.Request,res:express.Response)=>{
+    console.log(`Service B GET/products called`);
 res.json({
         success:true,
-        service:process.env.SERVICE_NAME,
-        count:users.length,
-        data:users
+        service:"Fetching product details",
+        count:products.length,
+        data:products
     });
 })
 
-app.get("/users/:id",(req:express.Request,res:express.Response)=>{
+app.get("/products/:id",(req:express.Request,res:express.Response)=>{
     const rawId=req.params.id;
     const id=Number(rawId);
-    const user=users.find(u => u.id ===id);
-    console.log(`[SERVICE A] GET /users/${id} called`);
+    const product=products.find(u => u.id ===id);
+    console.log(`[SERVICE B] GET /products/${id} called`);
 
-if(!user){
+if(!product){
     return res.status(404).json({
         success:false,
-        message:`User with id ${id} not found`
+        message:`product with id ${id} not found`
     });
 }
 return res.json({
     success:true,
-    service:'Fetching Users',
-    data:user
+    service:'Fetching Products',
+    data:product
 });
 
 });
 
 
-app.post("/users",(req:express.Request,res:express.Response)=>{
+app.post("/products",(req:express.Request,res:express.Response)=>{
 
-    const {name,email,role}=req.body;
+    const {name,price,country}=req.body;
 
 
     
 
-    console.log("[SERVICE A] POST /users called",req.body);
+    console.log("[SERVICE B] POST /products called",req.body);
 
-    if(!name || !email){
+    if(!name || !price){
         return res.status(400).json({
             success:false,
-            message:"Name and email are required"
+            message:"Name and price are required"
         });
     }
 
-const newUser:UserData={
-    id:users.length +1,
+const newProduct:ProductData={
+    id:products.length +1,
     name,
-    email,
-    role:role || 'user'
+    price,
+    country
+    
 };
-users.push(newUser);
+products.push(newProduct);
 
  res.status(201).json({
     success: true,
-    service: 'creating users',
-    message: 'User created successfully',
-    data: newUser
+    service: 'creating products',
+    message: 'Product created successfully',
+    data: newProduct
   });
 });
 
@@ -86,14 +87,14 @@ users.push(newUser);
 app.get('/health', (req:express.Request, res:express.Response) => {
   res.json({
     success: true,
-    service: process.env.SERVICE_NAME,
+    service: "Health checkup",
     status: 'running',
-    port:process.env.PORT1
+    port:process.env.PORT2
   });
 });
 
 
-const PORT = process.env.PORT1 || 4001;
+const PORT = process.env.PORT2 || 4002;
 app.listen(PORT, () => {
-  console.log(`Service A (Users) running on port ${PORT}`);
+  console.log(`Service B (Products) running on port ${PORT}`);
 });

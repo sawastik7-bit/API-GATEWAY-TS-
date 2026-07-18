@@ -1,24 +1,21 @@
-
 import mongoose from "mongoose";
 
-
-interface LogData{
-    method:string;
-    status:number;
-    userId:string;
-    timestamp:number;
-    userRole:string;
+interface LogData {
+    method: string;
+    url: string;
+    statusCode: number;
+    duration: number;
+    timestamp: number;
 }
-const logSchema=new mongoose.Schema<LogData>({
-    
-    method:{type:String, required:true},
-    status:{type:Number, required:true},
-userId:{type:String,required:true},
-    timestamp:{type:Number},
-    userRole:{type:String},
 
+const logSchema = new mongoose.Schema<LogData>({
+    method: { type: String, required: true },
+    url: { type: String, required: true },
+    statusCode: { type: Number, required: true },
+    duration: { type: Number, required: true },
+    timestamp: { type: Number, required: true },
 });
 
-const Log=mongoose.model<LogData>('Log',logSchema);
+const Log = mongoose.model<LogData>('Log', logSchema);
 
-export  {Log};
+export { Log };

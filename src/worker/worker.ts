@@ -3,6 +3,7 @@ import  {Worker} from 'bullmq';
 import mongoose from 'mongoose';
 import  {createServer} from 'http';
 import {Server} from 'socket.io';
+import {Log} from "./schema/dbSchema.js";
 
 if(!process.env.MONGO_URI){
     throw new Error("the env variables is not loaded correctly");
